@@ -3,13 +3,6 @@
 #include <random>
 using namespace std;
 
-std::vector<bool> asis(std::vector<bool> input){
-	return input;
-}
-bool LSB(std::vector<bool> input){
-	return input[input.size() - 1];
-}
-
 bool bool_xor(bool a, bool b){
 	return (a && !b) || (!a && b);
 }
@@ -69,8 +62,8 @@ class PRF
 {
 	PRG *prg;
 	std::vector<bool> seed;
-	int seedLength;
 public:
+	int seedLength;
 	PRF(PRG *prg, int seedLength){
 		this->prg = prg;
 		this->seedLength = seedLength;
@@ -91,8 +84,8 @@ public:
 class SKE
 {
 	PRF *prf;
-	int randomLength;
 public:
+	int randomLength;
 	SKE(PRF *prf, int randomLength){
 		this->prf = prf;
 		this->randomLength = randomLength;
@@ -124,8 +117,8 @@ public:
 	}
 	std::vector<bool> genMAC(std::vector<bool> m){
 		if (m.size()%(prf->seedLength) != 0){
-			throw "message cannot be made into blocks!";
-			return NULL;
+			cout << "message cannot be made into blocks!" << endl;
+			exit(EXIT_FAILURE);
 		}
 		std::vector<bool> output(prf->seedLength, false);
 		for (int i = 0; i < m.size()/(prf->seedLength); ++i){
@@ -160,8 +153,8 @@ public:
 		encMess = mac->genMAC(encMess);
 		for (int i = 0; i < encMess.size(); ++i){
 			if (encMess[i] != cipherText[1][i]){
-				throw "MAC sign is forged!";
-				return NULL;
+				cout << "MAC sign is forged!" << endl;
+				exit(EXIT_FAILURE);
 			}
 		}
 		encMess = ske->decrypt(cipherText[0]);
@@ -169,14 +162,3 @@ public:
 	}
 };
 
-int main(int argc, char const *argv[])
-{
-	srand(time(NULL));
-	std::vector<bool> v;
-	for (int i = 0; i < 10; ++i)v.push_back(true);
-	PRG a = PRG(asis, LSB);
-	v = a.oneBitStretch(v);
-	for (int i = 0; i < v.size(); ++i)cout << v[i];
-	cout << endl;
-	return 0;
-}
