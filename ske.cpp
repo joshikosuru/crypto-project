@@ -31,7 +31,7 @@ std::vector<bool> RNG(int size){
 std::vector<bool> RG(int length){
 	std::vector<bool> r;
 	for (int i = 0; i < length; ++i){
-		r.push_back(rand()%2)
+		r.push_back(rand()%2);
 	}
 	return r;
 }
@@ -112,6 +112,60 @@ public:
 		for (int i = 0; i < cipherText.size() - this->randomLength; ++i)
 			plainText.push_back(bool_xor(cipherText[i+this->randomLength], Key[i%Key.size()]));
 		return plainText;
+	}
+};
+
+class MAC
+{
+	PRF *prf;
+public:
+	MAC(PRF *prf){
+		this->prf = prf;
+	}
+	std::vector<bool> genMAC(std::vector<bool> m){
+		if (m.size()%(prf->seedLength) != 0){
+			throw "message cannot be made into blocks!";
+			return NULL;
+		}
+		std::vector<bool> output(prf->seedLength, false);
+		for (int i = 0; i < m.size()/(prf->seedLength); ++i){
+			for (int j = 0; j < prf->seedLength; ++j)
+			{
+				output[j] = bool_xor(output[j], m[i*(prf->seedLength) + j]);
+			}
+			output = prf->keyGen(output);
+		}
+		return output;
+	}
+};
+
+class SKE_CCA
+{
+	SKE *ske;
+	MAC *mac;
+public:
+	SKE_CCA(SKE *ske, MAC *mac){
+		this->ske = ske;
+		this->mac = mac;
+	}
+	std::vector<std::vector<bool> > encrypt(std::vector<bool> plainText){
+		std::vector<std::vector<bool> > cipherText(2);
+		cipherText[0] = ske->encrypt(plainText);
+		std::vector<bool> encMess(cipherText[0].begin() + ske->randomLength, cipherText[0].end());
+		cipherText[1] = mac->genMAC(encMess);
+		return cipherText;
+	}
+	std::vector<bool> decrypt(std::vector<std::vector<bool> > cipherText){
+		std::vector<bool> encMess(cipherText[0].begin() + ske->randomLength, cipherText[0].end());
+		encMess = mac->genMAC(encMess);
+		for (int i = 0; i < encMess.size(); ++i){
+			if (encMess[i] != cipherText[1][i]){
+				throw "MAC sign is forged!";
+				return NULL;
+			}
+		}
+		encMess = ske->decrypt(cipherText[0]);
+		return encMess;
 	}
 };
 
