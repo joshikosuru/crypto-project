@@ -4,10 +4,9 @@
 #include <random>
 using namespace std;
 
-/*
-	BEGIN bool_xor
-
-	Input  : Two bool values
+//	BEGIN bool_xor
+/**
+	Input  : Two bool values\n
 	Output : XOR of the two input bool variables
 */
 bool bool_xor(bool a, bool b){
@@ -19,10 +18,9 @@ bool bool_xor(bool a, bool b){
 
 
 
-/*
-	BEGIN RNG
-
-	Input  : integer
+//	BEGIN RNG
+/**
+	Input  : integer\n
 	Output : returns a random boolean vector of size same as input
 */
 std::vector<bool> RNG(int size){
