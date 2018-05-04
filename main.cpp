@@ -1,4 +1,4 @@
-#include "ske.cpp"
+#include "cryptolib.cpp"
 #include <iostream>
 #include <vector>
 #include <random>
@@ -32,6 +32,7 @@ int main(int argc, char const *argv[])
         x[i] = ((i%3)%2);
     }
     std::vector<std::vector<bool>> ciph = ske_cca.encrypt(x);
+    // ciph[1][0] = !ciph[1][0];
     std::vector<bool> y = ske_cca.decrypt(ciph);
     if(y.size() == 40) cout << "true"<<endl;
     for(int i = 0; i < 40; i++){
