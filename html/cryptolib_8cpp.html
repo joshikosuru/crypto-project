@@ -64,7 +64,8 @@ $(function() {
 <div class="title">cryptolib.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="cryptolib_8h_source.html">cryptolib.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;sys/random.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="cryptolib_8h_source.html">cryptolib.h</a>&quot;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;random&gt;</code><br />
@@ -80,6 +81,12 @@ Include dependency graph for cryptolib.cpp:</div>
 Functions</h2></td></tr>
 <tr class="memitem:a3f003837d0b678bceb2fef02e365b869"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cryptolib_8cpp.html#a3f003837d0b678bceb2fef02e365b869">bool_xor</a> (bool a, bool b)</td></tr>
 <tr class="separator:a3f003837d0b678bceb2fef02e365b869"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d573ce1bdef17a768d72f9fccd7a26d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cryptolib_8cpp.html#a9d573ce1bdef17a768d72f9fccd7a26d">get_bit</a> (unsigned char *bits, unsigned bit)</td></tr>
+<tr class="separator:a9d573ce1bdef17a768d72f9fccd7a26d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c5029da062011fd95aadbabd094fca2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cryptolib_8cpp.html#a8c5029da062011fd95aadbabd094fca2">char_to_vector_bit</a> (vector&lt; bool &gt; &amp;dest, unsigned char *src, size_t size)</td></tr>
+<tr class="separator:a8c5029da062011fd95aadbabd094fca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2b499ba07ec1bc46f23a7e318b508a7"><td class="memItemLeft" align="right" valign="top">vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cryptolib_8cpp.html#ae2b499ba07ec1bc46f23a7e318b508a7">TRNG</a> (size_t size)</td></tr>
+<tr class="separator:ae2b499ba07ec1bc46f23a7e318b508a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a797524feb5db1332b8d616294b25a5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cryptolib_8cpp.html#a5a797524feb5db1332b8d616294b25a5">RNG</a> (int size)</td></tr>
 <tr class="separator:a5a797524feb5db1332b8d616294b25a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -114,6 +121,70 @@ Output : XOR of the two input bool variables </p>
 
 </div>
 </div>
+<a id="a8c5029da062011fd95aadbabd094fca2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c5029da062011fd95aadbabd094fca2">&#9670;&nbsp;</a></span>char_to_vector_bit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void char_to_vector_bit </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; bool &gt; &amp;&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Converts char* to boolean vector </p>
+
+</div>
+</div>
+<a id="a9d573ce1bdef17a768d72f9fccd7a26d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d573ce1bdef17a768d72f9fccd7a26d">&#9670;&nbsp;</a></span>get_bit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool get_bit </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>bits</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>bit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Takes an array of byte-packed 'bits' of length 'bytes' bytes, and returns the indexed 'bit'. </p>
+
+</div>
+</div>
 <a id="a5a797524feb5db1332b8d616294b25a5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5a797524feb5db1332b8d616294b25a5">&#9670;&nbsp;</a></span>RNG()</h2>
 
@@ -131,6 +202,25 @@ Output : XOR of the two input bool variables </p>
 </div><div class="memdoc">
 <p>Input : integer<br />
 Output : returns a random boolean vector of size same as input </p>
+
+</div>
+</div>
+<a id="ae2b499ba07ec1bc46f23a7e318b508a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2b499ba07ec1bc46f23a7e318b508a7">&#9670;&nbsp;</a></span>TRNG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;bool&gt; TRNG </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Truly random number generator uses /dev/random file to get system entropy </p>
 
 </div>
 </div>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['onebitstretch',['oneBitStretch',['../classPRG.html#a4c18ef5b4a24a0aab23f5f921a2b7726',1,'PRG']]]
+  ['mac',['MAC',['../classMAC.html#a61473378a1931e8cfda1b5f9af9557fe',1,'MAC']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['rng',['RNG',['../cryptolib_8cpp.html#a5a797524feb5db1332b8d616294b25a5',1,'cryptolib.cpp']]]
+  ['prf',['PRF',['../classPRF.html#a1eec5e780413d4279c86e77f99eff796',1,'PRF']]],
+  ['prg',['PRG',['../classPRG.html#aeaba1eb6b7f52f923068edfc7c34a930',1,'PRG']]]
 ];
