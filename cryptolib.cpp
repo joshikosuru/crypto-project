@@ -1,3 +1,4 @@
+#include <sys/random.h>
 #include "cryptolib.h"
 #include <iostream>
 #include <vector>
@@ -16,6 +17,49 @@ bool bool_xor(bool a, bool b){
 	END bool_xor
 */
 
+
+/**
+	 Takes an array of byte-packed 'bits'
+	of length 'bytes' bytes, and returns the indexed 'bit'.	
+*/
+bool get_bit(unsigned char *bits, unsigned bit){
+	unsigned byte_index = bit / 8;
+	unsigned bit_index = bit % 8;
+	unsigned mask = 1 << bit_index;
+	return (bits[byte_index] & mask) != 0;
+}
+
+
+/**
+	Converts char* to boolean vector
+*/
+void char_to_vector_bit(vector<bool> &dest, unsigned char *src, size_t size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		dest[i] = get_bit(src, i);
+	}
+}
+
+
+//BEGIN TRNG
+/**
+   Truly random number generator uses /dev/random file to get system entropy 
+*/
+vector<bool> TRNG(size_t size)
+{
+	vector<bool> x(size);
+	size_t sz = (size + 7) / 8;
+	unsigned char buf[sz];
+	size_t curr = 0;
+	while (curr < sz)
+	{
+		curr += getrandom(buf + curr, sz - curr, GRND_RANDOM);
+	}
+
+	char_to_vector_bit(x, buf, size);
+	return x;
+}
 
 
 //	BEGIN RNG
@@ -82,7 +126,7 @@ std::vector<bool> PRG::doubling(std::vector<bool> input){
 PRF::PRF(PRG *prg, int seedLength){
 	this->prg = prg;
 	this->seedLength = seedLength;
-	this->seed = RNG(seedLength);
+	this->seed = TRNG(seedLength);
 }
 
 std::vector<bool> PRF::keyGen(std::vector<bool> r){
